@@ -1,0 +1,43 @@
+version: '3.8'
+services:
+  db:
+    container_name: postgres_container
+    image: postgres:14.1-alpine
+    restart: always
+    networks:
+      - local
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_DATABASE}
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}" ]
+      timeout: 45s
+      interval: 10s
+      retries: 10
+
+  webservice:
+    container_name: webservice_container
+    build:
+      context: .
+      target: builder
+    networks:
+      - local
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file: .env
+    volumes:
+      - ./src:/app/src
+      - ./dist:/app/dist2
+    ports:
+      - "${PORT}:${PORT}"
+      - "9229:9229"
+    command: sh -c "npm run start"
+
+networks:
+  local:
