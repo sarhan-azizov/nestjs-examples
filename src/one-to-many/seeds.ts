@@ -2,8 +2,8 @@ import { MigrationInterface, QueryRunner } from 'typeorm';
 import { citiesSeed } from './cities.seed';
 import { countriesSeed } from './countries.seed';
 
-export class Seeds1673384735839 implements MigrationInterface {
-  name = 'Seeds1673384735839';
+export class Seeds1675282867585 implements MigrationInterface {
+  name = 'Seeds1675282867585';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await countriesSeed(queryRunner);

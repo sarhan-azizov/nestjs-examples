@@ -14,6 +14,6 @@ export const DOTENV = {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
     logging: true,
-    synchronize: false,
+    synchronize: true,
   },
 };

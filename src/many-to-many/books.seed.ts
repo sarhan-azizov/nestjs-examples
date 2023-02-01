@@ -2,33 +2,18 @@ import { QueryRunner } from 'typeorm';
 
 import { AuthorEntity } from './author.entity';
 import { BookEntity } from './book.entity';
-import { countries } from './countries.seed';
+import { authors } from './authors.seed';
 
-export const authorsSeed = async (queryRunner: QueryRunner): Promise<void> => {
-  const cities: Pick<BookEntity, 'name' | 'author'>[] = [
+export const booksSeed = async (queryRunner: QueryRunner): Promise<void> => {
+  const books: Pick<BookEntity, 'name' | 'authors'>[] = [
     {
       name: 'Львов',
-      author: Object.assign(new AuthorEntity(), { id: countries[0].id }),
-    },
-    {
-      name: 'Киев',
-      author: Object.assign(new AuthorEntity(), { id: countries[0].id }),
-    },
-    {
-      name: 'Днепр',
-      author: Object.assign(new AuthorEntity(), { id: countries[0].id }),
-    },
-    {
-      name: 'Харьков',
-      author: Object.assign(new AuthorEntity(), { id: countries[0].id }),
-    },
-    {
-      name: 'Донецк',
-      author: Object.assign(new AuthorEntity(), { id: countries[0].id }),
+      authors: [Object.assign(new AuthorEntity(), { id: authors[0].id })],
     },
   ];
+
   await queryRunner.manager.insert(
     BookEntity,
-    cities.map((city) => Object.assign(new BookEntity(), city)),
+    books.map((book) => Object.assign(new BookEntity(), book)),
   );
 };

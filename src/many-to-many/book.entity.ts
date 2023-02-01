@@ -5,34 +5,35 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  JoinTable,
 } from 'typeorm';
 
-import { CountryEntity } from './country.entity';
-import { JoinTable } from 'typeorm/browser';
+import { AuthorEntity } from './author.entity';
 
-@Entity('CITY')
-export class CityEntity {
-  @PrimaryGeneratedColumn('uuid', { primaryKeyConstraintName: 'CITY_id_pkey' })
+@Entity('BOOK')
+export class BookEntity {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
   name: string;
 
-  @ManyToMany(() => CountryEntity, (countryEntity) => countryEntity.city, {
+  @ManyToMany(() => AuthorEntity, (authorEntity) => authorEntity.books, {
+    cascade: true,
     nullable: false,
   })
   @JoinTable({
-    name: 'CITY_COUNTRY',
+    name: 'BOOK_AUTHOR',
     joinColumn: {
-      name: 'countryId',
-      foreignKeyConstraintName: 'CITY_COUNTRY_countryId_fkey',
+      name: 'bookId',
+      foreignKeyConstraintName: 'BOOK_AUTHOR_bookId_fkey',
     },
     inverseJoinColumn: {
-      name: 'cityId',
-      foreignKeyConstraintName: 'CITY_COUNTRY_cityId_fkey',
+      name: 'authorId',
+      foreignKeyConstraintName: 'BOOK_AUTHOR_authorId_fkey',
     },
   })
-  country: CountryEntity;
+  authors: AuthorEntity[];
 
   @CreateDateColumn()
   createdAt: Date;

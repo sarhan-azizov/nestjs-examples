@@ -2,24 +2,24 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
+  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { CityEntity } from './city.entity';
+import { BookEntity } from './book.entity';
 
-@Entity('COUNTRY')
-export class CountryEntity {
-  @PrimaryGeneratedColumn('uuid', {
-    primaryKeyConstraintName: 'COUNTRY_id_pkey',
-  })
+@Entity('AUTHOR')
+export class AuthorEntity {
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
   name: string;
 
-  @OneToMany(() => CityEntity, (cityEntity) => cityEntity.country)
-  city: CityEntity;
+  @ManyToMany(() => BookEntity, (bookEntity) => bookEntity.authors, {
+    nullable: false,
+  })
+  books: BookEntity[];
 
   @CreateDateColumn()
   createdAt: Date;

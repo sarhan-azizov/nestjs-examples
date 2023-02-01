@@ -3,13 +3,11 @@ import { QueryRunner } from 'typeorm';
 
 import { AuthorEntity } from './author.entity';
 
-export const countries = [{ id: faker.datatype.uuid(), name: 'Украина' }];
+export const authors = [{ id: faker.datatype.uuid(), name: 'Sarhan Azizov' }];
 
-export const countriesSeed = async (
-  queryRunner: QueryRunner,
-): Promise<void> => {
+export const authorsSeed = async (queryRunner: QueryRunner): Promise<void> => {
   await queryRunner.manager.insert(
     AuthorEntity,
-    countries.map((country) => Object.assign(new AuthorEntity(), country)),
+    authors.map((author) => Object.assign(new AuthorEntity(), author)),
   );
 };
