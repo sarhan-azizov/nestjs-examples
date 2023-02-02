@@ -1,12 +1,4 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  ManyToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
-import { BookEntity } from './book.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('AUTHOR')
 export class AuthorEntity {
@@ -15,15 +7,4 @@ export class AuthorEntity {
 
   @Column()
   name: string;
-
-  @ManyToMany(() => BookEntity, (bookEntity) => bookEntity.authors, {
-    nullable: false,
-  })
-  books: BookEntity[];
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 }

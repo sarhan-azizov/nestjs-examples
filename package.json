@@ -16,7 +16,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "typeorm:cli": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli",
-    "seed:migration": "npm run typeorm:cli -- migration:run -d src/data-source.ts",
+    "seeds": "npm run typeorm:cli -- migration:run -d src/data-source.ts",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json"

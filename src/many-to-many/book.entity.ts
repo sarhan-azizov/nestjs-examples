@@ -13,12 +13,12 @@ import { AuthorEntity } from './author.entity';
 @Entity('BOOK')
 export class BookEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: number;
 
   @Column()
   name: string;
 
-  @ManyToMany(() => AuthorEntity, (authorEntity) => authorEntity.books, {
+  @ManyToMany(() => AuthorEntity, {
     cascade: true,
     nullable: false,
   })

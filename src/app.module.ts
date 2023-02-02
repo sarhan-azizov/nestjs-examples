@@ -2,9 +2,8 @@ import { join } from 'path';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { DOTENV } from './configs';
+import { CountriesModule } from './countries/countries.module';
 
 @Module({
   imports: [
@@ -19,8 +18,9 @@ import { DOTENV } from './configs';
       synchronize: DOTENV.database.synchronize,
       entities: [join(__dirname, '**', '*.entity.{ts,js}')],
     }),
+    CountriesModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
